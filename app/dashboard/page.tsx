@@ -1,6 +1,6 @@
 
 
-export default function Home() {
+export default function Dashboard() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">  
     <div className="mb-3 text-2xl font-semibold">
@@ -18,6 +18,19 @@ export default function Home() {
         >
           <h2 className="mb-3 text-2xl font-semibold">
             Terraria-wiki{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+        </a>
+        <a
+          href="http://localhost:3000/banners"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className="mb-3 text-2xl font-semibold">
+            Banners{" "}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
