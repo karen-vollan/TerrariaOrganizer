@@ -13,7 +13,7 @@ export default function Dashboard() {
       <div className="mb-32 grid gap-4 text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left">
         <a
           href="https://terraria.wiki.gg/wiki/Terraria_Wiki"
-          className="group rounded-lg border border-transparent px-4 py-8 transition-colors border-neutral-400 hover:border-neutral-600 hover:bg-neutral-600/20 dark:border-neutral-700 dark:hover:border-neutral-500 dark:hover:bg-neutral-500/20"
+          className="group rounded-lg border px-4 py-8 transition-colors border-neutral-400 hover:border-neutral-600 hover:bg-neutral-600/20 dark:border-neutral-700 dark:hover:border-neutral-500 dark:hover:bg-neutral-500/20"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -27,7 +27,7 @@ export default function Dashboard() {
 
         <a
           href="https://docs.google.com/document/d/1oURMd6MMpedXncMpJtXIyKHOhzExry8Rr5kDYzKe_T4/edit?pli=1"
-          className="group rounded-lg border border-transparent px-4 py-8 transition-colors border-neutral-400 hover:border-neutral-600 hover:bg-neutral-600/20 dark:border-neutral-700 dark:hover:border-neutral-500 dark:hover:bg-neutral-500/20"
+          className="group rounded-lg border px-4 py-8 transition-colors border-neutral-400 hover:border-neutral-600 hover:bg-neutral-600/20 dark:border-neutral-700 dark:hover:border-neutral-500 dark:hover:bg-neutral-500/20"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -41,7 +41,7 @@ export default function Dashboard() {
 
         <a
           href="https://docs.google.com/document/d/1U43ENhGg1YnrYumURubGUELqbQX0B1EG0rTJ2ISfK90/edit?usp=sharing"
-          className="group rounded-lg border border-transparent px-4 py-8 transition-colors border-neutral-400 hover:border-neutral-600 hover:bg-neutral-600/20 dark:border-neutral-700 dark:hover:border-neutral-500 dark:hover:bg-neutral-500/20"
+          className="group rounded-lg border px-4 py-8 transition-colors border-neutral-400 hover:border-neutral-600 hover:bg-neutral-600/20 dark:border-neutral-700 dark:hover:border-neutral-500 dark:hover:bg-neutral-500/20"
           target="_blank"
           rel="noopener noreferrer"
         >
