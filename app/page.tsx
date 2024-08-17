@@ -1,8 +1,36 @@
-import Link from 'next/link'
 
-export default function Dashboard() {
+'use client'
+import { useState, useEffect } from 'react';
+import Link from 'next/link'
+import { initializeApp } from "firebase/app"
+import { getFirestore, doc, onSnapshot } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBtBcTLSpWUCVDaLJdjM8PF1KkrZQ9Ubqs",
+  authDomain: "terraria-organizer.firebaseapp.com",
+  projectId: "terraria-organizer",
+  storageBucket: "terraria-organizer.appspot.com",
+  messagingSenderId: "906331412619",
+  appId: "1:906331412619:web:06e25af3df0c0f4b85dc8e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export default function Dashboard(
+) {
+  const [banners, setBanners] = useState("")
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "banners", "all"), (doc) => {
+      const updateBanners = doc.data()?.list[0]?.name ?? "";
+      setBanners(updateBanners);
+    });
+    return () => unsub();
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center p-8">  
+    <main className="flex min-h-screen flex-col items-center p-8"> 
+    <p>banners: {banners}</p> 
       <div className="mb-8 text-2xl font-semibold">
         <img
           src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/9d5129b7-ce49-47de-9432-43876d118928/d6r6e7d-3aa7ddfc-7628-4442-8541-1fe1dc3844c2.png/v1/fit/w_750,h_224/terraria_logo_hd_by_dragondeplatino_d6r6e7d-375w-2x.png"
