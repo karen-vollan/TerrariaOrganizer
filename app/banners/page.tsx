@@ -4,9 +4,9 @@
 //https://react.dev/reference/rsc/use-client#use-client
 
 // imports
-import { useState, useEffect } from 'react';
-import { initializeApp } from "firebase/app"
-import { getFirestore, doc, onSnapshot, getDoc, updateDoc} from 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+import { doc, getDoc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 
 // create connection with firestore
 const firebaseConfig = {
@@ -27,7 +27,7 @@ interface Banner {
 }
 
 // update firestore with the new banners
-async function updateBanners(index:number, bannerPlaced:Boolean) {
+async function updateBanners(index: number, bannerPlaced: boolean) {
   // get banners from the list allBanners in 
   // collection "banners" - document "all" - field "allBanners"
   const docRef = doc(db, "banners", "all")
@@ -52,58 +52,65 @@ export default function Banners() {
     return () => unsub();
   }, []);
 
-  const handleClick = (index:number, bannerPlaced:Boolean) => {
+  const handleClick = (index: number, bannerPlaced: boolean) => {
     updateBanners(index, bannerPlaced)
   }
   
 
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-                Banners
-            </th>
-            <th scope="col" className="px-6 py-3">
-                ID
-            </th>
-            <th scope="col" className="px-6 py-3">
-                Placed
-                
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {banners.map((banner, index) => (
-            <tr key={index} className="bg-white dark:bg-gray-800">
+      <thead className="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-300">
+        <tr>
+          <th scope="col" className="px-6 py-3">
+            Banners
+          </th>
+
+          <th scope="col" className="px-6 py-3">
+            ID
+          </th>
+
+          <th scope="col" className="px-6 py-3">
+            Placed
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {banners.map((banner, index) => (
+          <tr
+            key={index}
+            className="h-14 bg-gray-100 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800"
+          >
             {banner.placed ? (
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-500">
-              <span style={{ textDecoration: 'line-through' }}>{banner.name}</span>
-            </th>
-             ) : (
-             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-100">
-             {banner.name}
-           </th>)
-           }
-            <td className="px-6 py-4">
+              <td scope="row" className="px-6 font-medium text-gray-400 whitespace-nowrap dark:text-gray-500">
+                <span style={{ textDecoration: 'line-through' }}>{banner.name}</span>
+              </td>
+            ) : (
+              <td scope="row" className="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-gray-100">
+                {banner.name}
+              </td>
+            )}
+
+            <td className="px-6">
               {banner.id}
             </td>
-            <td className="px-6 py-4">
-            <div className="flex items-center mb-4">
+
+            <td className="px-6" style={{ cursor: "pointer" }} onClick={() => handleClick(index, banner.placed)}>
+              <div className="flex items-center">
                 <input 
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                id="default-checkbox" 
-                type="checkbox" 
-                value={index}
-                checked= {banner.placed}
-                onChange={() => handleClick(index, banner.placed)}
+                  className="text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  id="default-checkbox"
+                  type="checkbox"
+                  style={{ width: "16px", height: "16px", cursor: "pointer" }}
+                  value={index}
+                  checked= {banner.placed}
+                  onChange={() => handleClick(index, banner.placed)}
                 />
-                <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
               </div>
             </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
