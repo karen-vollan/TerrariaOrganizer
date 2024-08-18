@@ -26,7 +26,7 @@ export default function Banners() {
   const [banners, setBanners] = useState<Banner[]>([])
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "banners", "all"), (docRef) => {
-      const updateBanners = docRef.data()?.list ?? [] // const updateBanners = doc.data()?.list[0]?.name ?? "";
+      const updateBanners = docRef.data()?.allBanners ?? [] // const updateBanners = doc.data()?.list[0]?.name ?? "";
       setBanners(updateBanners);
     });
     return () => unsub();
