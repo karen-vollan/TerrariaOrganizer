@@ -27,7 +27,7 @@ interface Banner {
 }
 
 // update firestore with the new banners
-async function updateBanners(index: number, bannerPlaced: boolean) {
+async function updateBanners(banner: Banner) {
   // get banners from the list allBanners in 
   // collection "banners" - document "all" - field "allBanners"
   const docRef = doc(db, "banners", "all")
@@ -35,7 +35,7 @@ async function updateBanners(index: number, bannerPlaced: boolean) {
   const allBanners = docSnap.data()?.allBanners ?? []
 
   // change banner
-  allBanners[index]["placed"] = !bannerPlaced
+  allBanners.find((b: Banner) => b.id === banner.id)["placed"] = !banner.placed
 
   // update document
   await updateDoc(docRef, {allBanners})
@@ -47,13 +47,13 @@ export default function Banners() {
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "banners", "all"), (docRef) => {
       const updateBanners = docRef.data()?.allBanners ?? [] // const updateBanners = doc.data()?.list[0]?.name ?? "";
-      setBanners(updateBanners.sort((a: Banner, b: Banner) => a.name.localeCompare(b.name)));
+      setBanners(updateBanners);
     });
     return () => unsub();
   }, []);
 
-  const handleClick = (index: number, bannerPlaced: boolean) => {
-    updateBanners(index, bannerPlaced)
+  const handleClick = (banner: Banner) => {
+    updateBanners(banner)
   }
   
 
@@ -76,7 +76,7 @@ export default function Banners() {
       </thead>
 
       <tbody>
-        {banners.map((banner, index) => (
+        {banners.sort((a: Banner, b: Banner) => a.name.localeCompare(b.name)).map((banner, index) => (
           <tr
             key={index}
             className="h-14 bg-gray-100 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800"
@@ -95,7 +95,7 @@ export default function Banners() {
               {banner.id}
             </td>
 
-            <td className="px-6" style={{ cursor: "pointer" }} onClick={() => handleClick(index, banner.placed)}>
+            <td className="px-6" style={{ cursor: "pointer" }} onClick={() => handleClick(banner)}>
               <div className="flex items-center">
                 <input 
                   className="text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -104,7 +104,7 @@ export default function Banners() {
                   style={{ width: "16px", height: "16px", cursor: "pointer" }}
                   value={index}
                   checked= {banner.placed}
-                  onChange={() => handleClick(index, banner.placed)}
+                  onChange={() => handleClick(banner)}
                 />
               </div>
             </td>
