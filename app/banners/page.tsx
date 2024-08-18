@@ -55,6 +55,7 @@ export default function Banners() {
   const handleClick = (index:number, bannerPlaced:Boolean) => {
     updateBanners(index, bannerPlaced)
   }
+  
 
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -68,6 +69,7 @@ export default function Banners() {
             </th>
             <th scope="col" className="px-6 py-3">
                 Placed
+                
             </th>
           </tr>
         </thead>
@@ -81,7 +83,17 @@ export default function Banners() {
               {banner.id}
             </td>
             <td className="px-6 py-4">
-              <button onClick={() => handleClick(index, banner.placed)}>{banner.placed ? "Yes" : "No"}</button>
+            <div className="flex items-center mb-4">
+                <input 
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                id="default-checkbox" 
+                type="checkbox" 
+                value={index}
+                checked= {banner.placed}
+                onChange={() => handleClick(index, banner.placed)}
+                />
+                <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
+              </div>
             </td>
             </tr>
           ))}
