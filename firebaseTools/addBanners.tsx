@@ -5,10 +5,12 @@ interface Banner {
   name: string;
   placed: boolean;
 }// syntax-example:  { "id": "2928", "name": "Green Slime Banner", "placed": false },
-// NOTE: Ferdig med Slimes og Environments
 const newBanners: Banner[] = [
   //add new banners here...
-];
+]
+
+
+;
 
 // imports
 import { initializeApp } from "firebase/app"
