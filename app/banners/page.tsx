@@ -47,7 +47,7 @@ export default function Banners() {
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "banners", "all"), (docRef) => {
       const updateBanners = docRef.data()?.allBanners ?? [] // const updateBanners = doc.data()?.list[0]?.name ?? "";
-      setBanners(updateBanners);
+      setBanners(updateBanners.sort((a: Banner, b: Banner) => a.name.localeCompare(b.name)));
     });
     return () => unsub();
   }, []);
