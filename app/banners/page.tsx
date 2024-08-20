@@ -46,7 +46,7 @@ export default function Banners() {
   const [banners, setBanners] = useState<Banner[]>([])
   const [maxNumberBanners, setMaxNumberBanners] = useState<number>(0)
   const [placedNumberBanners, setPlacedNumberBanners] = useState<number>(0)
-  const [progress, setProgress] = useState<string>(0)
+  const [progress, setProgress] = useState<string>("0%")
  
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "banners", "all"), (docRef) => {
