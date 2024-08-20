@@ -44,10 +44,21 @@ async function updateBanners(banner: Banner) {
 
 export default function Banners() {
   const [banners, setBanners] = useState<Banner[]>([])
+  const [maxNumberBanners, setMaxNumberBanners] = useState<number>(0)
+  const [placedNumberBanners, setPlacedNumberBanners] = useState<number>(0)
+  const [progress, setProgress] = useState<string>(0)
+ 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "banners", "all"), (docRef) => {
-      const updateBanners = docRef.data()?.allBanners ?? [] // const updateBanners = doc.data()?.list[0]?.name ?? "";
-      setBanners(updateBanners);
+      const updateBanners = docRef.data()?.allBanners ?? []
+      const updateMaxNumberBanners = updateBanners.length
+      const updatePlacedNumberBanners = updateBanners.filter((banner: Banner)=> banner.placed === true).length
+      const progress = updatePlacedNumberBanners / updateMaxNumberBanners * 100
+      setBanners(updateBanners)
+      setMaxNumberBanners(updateMaxNumberBanners)
+      setPlacedNumberBanners(updatePlacedNumberBanners)
+      setProgress((progress).toFixed(2) + "%")
+
     });
     return () => unsub();
   }, []);
@@ -58,6 +69,13 @@ export default function Banners() {
   
 
   return (
+    <>
+    <p>{placedNumberBanners}/{maxNumberBanners}</p>
+    <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+      <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: progress}}>{progress}</div>
+    </div>
+    <br></br>
+
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead className="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-300">
         <tr>
@@ -97,20 +115,19 @@ export default function Banners() {
 
             <td className="px-6" style={{ cursor: "pointer" }} onClick={() => handleClick(banner)}>
               <div className="flex items-center">
-                <input 
+                <input
                   className="text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   id="default-checkbox"
                   type="checkbox"
                   style={{ width: "16px", height: "16px", cursor: "pointer" }}
                   value={index}
-                  checked= {banner.placed}
-                  onChange={() => handleClick(banner)}
-                />
+                  checked={banner.placed}
+                  onChange={() => handleClick(banner)} />
               </div>
             </td>
           </tr>
         ))}
       </tbody>
-    </table>
+    </table></>
   );
 }
