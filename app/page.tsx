@@ -53,17 +53,19 @@ export default function Dashboard(
           </h2>
         </Link>
 
-        <Link 
-          href="/potions"
+        <a
+          href="https://docs.google.com/document/d/1U43ENhGg1YnrYumURubGUELqbQX0B1EG0rTJ2ISfK90/edit"
           className="group rounded-lg border px-4 py-8 transition-colors border-neutral-400 hover:border-neutral-600 hover:bg-neutral-600/20 dark:border-neutral-700 dark:hover:border-neutral-500 dark:hover:bg-neutral-500/20"
-          rel="noopener noreferrer">
-        <h2 className="text-xl font-semibold">
-            Potions{" "}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className="text-xl font-semibold">
+            Stautes doc{" "}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
           </h2>
-        </Link>
+        </a>
       </div>
     </main>
   );
