@@ -52,6 +52,18 @@ export default function Dashboard(
             </span>
           </h2>
         </Link>
+
+        <Link 
+          href="/potions"
+          className="group rounded-lg border px-4 py-8 transition-colors border-neutral-400 hover:border-neutral-600 hover:bg-neutral-600/20 dark:border-neutral-700 dark:hover:border-neutral-500 dark:hover:bg-neutral-500/20"
+          rel="noopener noreferrer">
+        <h2 className="text-xl font-semibold">
+            Potions{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+        </Link>
       </div>
     </main>
   );
